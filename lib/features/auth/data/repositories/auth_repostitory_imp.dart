@@ -12,18 +12,28 @@ import '../../domain/repositories/auth_repostitory.dart';
 
 class AuthRepostitoryImp extends AuthRepostitory {
   @override
-  Future<Either<Failure, UserEntity>> getUser() {
-    // TODO: implement getUser
-    throw UnimplementedError();
+  Future<Either<Failure, UserEntity>> getUser() async {
+    final User = FirebaseAuth.instance.currentUser;
+    if (User != null) {
+      final token = User.getIdToken();
+      return Right(UserEntity(
+        email: User.email ?? '',
+        uid: User.uid,
+        name: User.displayName ?? '',
+        token: token.toString(),
+      ));
+    } else {
+      return const Left(UserNotFoundFailure());
+    }
   }
 
   @override
-  Future<Either<Failure, UserCredential>> login(LoginModel user) async {
+  Future<Either<Failure, UserCredential>> login(LoginModel loginModel) async {
     try {
       final credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: user.email,
-        password: user.password,
+        email: loginModel.email,
+        password: loginModel.password,
       );
       return Right(credential);
     } on FirebaseAuthException catch (e) {
