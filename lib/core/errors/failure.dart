@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/services.dart';
 
 abstract class Failure extends Equatable {
   final String message;
@@ -88,4 +87,14 @@ class WeakPasswordFailure extends Failure {
 class EmailAlreadyInUseFailure extends Failure {
   const EmailAlreadyInUseFailure({String? message})
       : super(message: message ?? "The account already exists for that email.");
+}
+
+class WrongPasswordFailure extends Failure {
+  const WrongPasswordFailure({String? message})
+      : super(message: message ?? "Wrong password provided for that user.");
+}
+
+class UserNotFoundFailure extends Failure {
+  const UserNotFoundFailure({String? message})
+      : super(message: message ?? "No user found for that email.");
 }

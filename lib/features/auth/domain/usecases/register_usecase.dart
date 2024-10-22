@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:social_app/core/errors/failure.dart';
+import 'package:social_app/features/auth/data/models/register_model.dart';
 import 'package:social_app/features/auth/domain/repositories/auth_repostitory.dart';
 
 class RegisterUsecase {
@@ -7,7 +9,7 @@ class RegisterUsecase {
 
   RegisterUsecase(this.repository);
 
-  Future<Either<Failure, Unit>> call(String email, String password) async {
-    return await repository.register(email, password);
+  Future<Either<Failure, UserCredential>> call(RegisterModel user) async {
+    return await repository.register(user);
   }
 }
