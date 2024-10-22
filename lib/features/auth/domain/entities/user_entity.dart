@@ -9,6 +9,7 @@ class UserEntity extends Equatable {
     required this.uid,
     required this.email,
     required this.name,
+    required String id,
   });
 
   @override
