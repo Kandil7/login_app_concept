@@ -54,6 +54,25 @@ class LoginScreen extends StatelessWidget {
                       }
                     },
                     child: const Text('Login')),
+                const SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  children: [
+                    const Text(" I don't have an account ."),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => RegisterPage()));
+                        },
+                        child: const Text(
+                          'Register Now ',
+                          style: TextStyle(
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline),
+                        ))
+                  ],
+                )
               ],
             ),
           );

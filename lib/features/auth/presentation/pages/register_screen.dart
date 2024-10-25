@@ -77,6 +77,30 @@ class RegisterPage extends StatelessWidget {
                       }
                     },
                     child: const Text('Register')),
+                const SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  children: [
+                    const Text(" I have an account ."),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'Login Now ',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    )
+                  ],
+                )
               ],
             ),
           );
