@@ -15,12 +15,10 @@ class AuthRepostitoryImp extends AuthRepostitory {
   Future<Either<Failure, UserEntity>> getUser() async {
     final User = FirebaseAuth.instance.currentUser;
     if (User != null) {
-      final token = User.getIdToken();
       return Right(UserEntity(
         email: User.email ?? '',
         uid: User.uid,
         name: User.displayName ?? '',
-        token: token.toString(),
       ));
     } else {
       return const Left(UserNotFoundFailure());
