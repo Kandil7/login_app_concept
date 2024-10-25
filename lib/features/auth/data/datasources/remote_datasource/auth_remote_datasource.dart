@@ -92,6 +92,7 @@ class AuthRemoteDataSource {
         final userDoc =
             await _firestore.collection('users').doc(user.uid).get();
         final userJson = userDoc.data();
+
         return Right(UserModel.fromJson(userJson ?? {}).toEntity());
       } else {
         return const Left(UserNotFoundFailure(message: 'User not found'));

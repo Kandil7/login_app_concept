@@ -5,9 +5,9 @@ import 'package:social_app/features/auth/data/models/login_model.dart';
 import 'package:social_app/features/auth/data/models/register_model.dart';
 import 'package:social_app/features/auth/domain/entities/user_entity.dart';
 
-abstract class AuthRepostitory {
+abstract class AuthRepository {
   Future<Either<Failure, UserEntity>> getUser();
-  Future<Either<Failure, UserCredential>> login(LoginModel loginModel);
-  Future<Either<Failure, UserCredential>> register(RegisterModel registerModel);
-  Future<Either<Failure, void>> logout();
+  Future<Either<Failure, UserEntity>> login(LoginModel loginModel);
+  Future<Either<Failure, UserEntity>> register(RegisterModel registerModel);
+  Future<Either<Failure, Unit>> logout();
 }
