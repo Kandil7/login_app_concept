@@ -40,8 +40,14 @@ class AuthRepositoryImp implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, UserEntity>> register(RegisterModel registerModel) {
-    // TODO: implement register
-    throw UnimplementedError();
+  Future<Either<Failure, UserEntity>> register(
+      RegisterModel registerModel) async {
+    try {
+      final user = await remoteDataSource.registerWithEmailAndPassword(
+          registerModel.email, registerModel.password, registerModel.name);
+      return Right(user);
+    } catch (e) {
+      return const Left(ServerFailure());
+    }
   }
 }
