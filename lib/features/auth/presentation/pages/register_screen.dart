@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../cubits/auth_cubit.dart';
+import 'package:social_app/features/auth/presentation/presentation_layer.dart';
 
 class RegisterPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Register"),
+      ),
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
-          if (state is AuthFailure) {
+          if (state is AuthError) {
             ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.error)));
+                .showSnackBar(SnackBar(content: Text(state.message)));
           } else if (state is AuthSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('Welcome ${state.user.email}')));
@@ -22,7 +27,7 @@ class RegisterPage extends StatelessWidget {
         },
         builder: (context, state) {
           if (state is AuthLoading) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           return Padding(
             padding: const EdgeInsets.all(16.0),
@@ -30,23 +35,48 @@ class RegisterPage extends StatelessWidget {
               children: [
                 TextField(
                     controller: usernameController,
-                    decoration: InputDecoration(labelText: 'Username')),
+                    decoration: const InputDecoration(labelText: 'Username')),
+                const SizedBox(height: 10),
                 TextField(
                     controller: emailController,
-                    decoration: InputDecoration(labelText: 'Email')),
+                    decoration: const InputDecoration(labelText: 'Email')),
+                const SizedBox(height: 10),
                 TextField(
                     controller: passwordController,
-                    decoration: InputDecoration(labelText: 'Password')),
+                    decoration: const InputDecoration(labelText: 'Password')),
+                const SizedBox(height: 10),
+                TextField(
+                    controller: confirmPasswordController,
+                    decoration:
+                        const InputDecoration(labelText: 'confirm Password')),
+                const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () {
-                    context.read<AuthCubit>().register(
-                          emailController.text,
-                          passwordController.text,
-                          usernameController.text,
-                        );
-                  },
-                  child: Text('Register'),
-                ),
+                    onPressed: () {
+                      // validate fields
+                      if (emailController.text.isEmpty ||
+                          passwordController.text.isEmpty ||
+                          usernameController.text.isEmpty ||
+                          confirmPasswordController.text.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('All fields are required')));
+                        return;
+                      } else {
+                        if (passwordController.text ==
+                            confirmPasswordController.text) {
+                          context.read<AuthCubit>().register(
+                                emailController.text,
+                                passwordController.text,
+                                usernameController.text,
+                              );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Password does not match')));
+                        }
+                      }
+                    },
+                    child: const Text('Register')),
               ],
             ),
           );
