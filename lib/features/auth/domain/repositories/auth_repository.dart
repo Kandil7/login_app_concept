@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:social_app/core/errors/failure.dart';
 import 'package:social_app/features/auth/data/models/login_model.dart';
 import 'package:social_app/features/auth/data/models/register_model.dart';
