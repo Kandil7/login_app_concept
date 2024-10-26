@@ -1,4 +1,4 @@
-# social_app
+# Login app concepts
 
 A new Flutter project.
 
