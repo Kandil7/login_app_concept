@@ -13,19 +13,24 @@ This project is designed to provide a conceptual login application built with Fl
 ## Installation
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/yourprojectname.git
-   ```
+    ```bash
+    git clone https://github.com/Kandil7/login_app_concept.git
+    ```
 2. Navigate to the project directory:
-   ```bash
-   cd yourprojectname
-   ```
+    ```bash
+    cd login_app_concept
+    ```
 3. Install dependencies:
-   ```bash
-   npm install
-   ```
+    ```bash
+    npm install
+    ```
 
 ## Usage
+
+To start the project, run the following command:
+```bash
+npm start
+```
 
 To start the project, run the following command:
 ```bash
@@ -35,13 +40,13 @@ npm start
 ## Screenshots
 
 ### Feature 1
-![Feature 1 Screenshot](screenshots/feature1.png)
+![Feature 1 Screenshot](screenshot/Simulator Screenshot - iPhone 16 Pro Max - 2025-03-30 at 15.48.05.png)
 
 ### Feature 2
-![Feature 2 Screenshot](screenshots/feature2.png)
+![Feature 2 Screenshot](screenshot/Simulator Screenshot - iPhone 16 Pro Max - 2025-03-30 at 15.49.53.png)
 
 ### Feature 3
-![Feature 3 Screenshot](screenshots/feature3.png)
+![Feature 3 Screenshot](screenshot/Simulator Screenshot - iPhone 16 Pro Max - 2025-03-30 at 15.49.57.png)
 
 ## Contributing
 
