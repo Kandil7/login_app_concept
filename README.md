@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Project Title
 
 ## Overview
@@ -57,3 +58,11 @@ If you wish to contribute, please follow these steps:
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 
+=======
+# Register & Login
+📺 Watch Video
+
+[YouTube video](https://youtu.be/UgCSVffNvqQ) where the source code is explained. [Subscribe YouTube channel](https://www.youtube.com/channel/UCkSbTj3XSWdaGfHiITheBqg).
+
+
+>>>>>>> 11a1c36f46778dcd2565dddad0d19c0f2f6b31da
