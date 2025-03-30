@@ -1,27 +1,24 @@
-import 'package:device_preview/device_preview.dart';
-import 'package:flutter/foundation.dart';
+import 'package:auth/common/bloc/auth/auth_state_cubit.dart';
+import 'package:auth/presentation/home/pages/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:social_app/core/config/firebase_options.dart';
-import 'package:social_app/features/auth/domain/repositories/auth_repository.dart';
-import 'package:social_app/features/auth/presentation/presentation_layer.dart';
-import 'package:social_app/features/auth/domain/domain_layer.dart';
-import 'features/auth/data/data_layer.dart';
 
-Future<void> main() async {
+import 'common/bloc/auth/auth_state.dart';
+import 'core/configs/theme/app_theme.dart';
+import 'presentation/auth/pages/signup.dart';
+import 'service_locator.dart';
+
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarBrightness: Brightness.light,
+      systemNavigationBarColor: Colors.black
+    )
   );
-  runApp(
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => MyApp(), // Wrap your app
-    ),
-  );
+  setupServiceLocator();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -29,32 +26,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider<AuthRepository>(
-          create: (context) => AuthRepositoryImp(
-            AuthRemoteDataSource(
-                FirebaseAuth.instance, FirebaseFirestore.instance),
-          ),
+    SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
+    return BlocProvider(
+      create: (context) => AuthStateCubit()..appStarted(),
+      child: MaterialApp(
+          theme: AppTheme.appTheme,
+          debugShowCheckedModeBanner: false,
+          home: BlocBuilder<AuthStateCubit,AuthState>(
+            builder: (context, state) {
+              if (state is Authenticated){
+                return const HomePage();
+              }
+              if (state is UnAuthenticated){
+                return SignupPage();
+              }
+              return Container();
+            },
+          )
         ),
-      ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<AuthCubit>(
-            create: (context) => AuthCubit(
-              context.read<AuthRepositoryImp>(),
-            ),
-          ),
-        ],
-        child: MaterialApp(
-          useInheritedMediaQuery: true,
-          locale: DevicePreview.locale(context),
-          builder: DevicePreview.appBuilder,
-          theme: ThemeData.light(),
-          darkTheme: ThemeData.dark(),
-          home: LoginScreen(),
-        ),
-      ),
     );
   }
 }
