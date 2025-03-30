@@ -32,21 +32,17 @@ To start the project, run the following command:
 npm start
 ```
 
-To start the project, run the following command:
-```bash
-npm start
-```
 
 ## Screenshots
 
 ### Feature 1
-![Feature 1 Screenshot](screenshot/Simulator Screenshot - iPhone 16 Pro Max - 2025-03-30 at 15.48.05.png)
+![Feature 1 Screenshot](screenshot/featuretwo.png)
 
 ### Feature 2
-![Feature 2 Screenshot](screenshot/Simulator Screenshot - iPhone 16 Pro Max - 2025-03-30 at 15.49.53.png)
+![Feature 2 Screenshot](screenshot/login.png)
 
 ### Feature 3
-![Feature 3 Screenshot](screenshot/Simulator Screenshot - iPhone 16 Pro Max - 2025-03-30 at 15.49.57.png)
+![Feature 3 Screenshot](screenshot/logout.png)
 
 ## Contributing
 
